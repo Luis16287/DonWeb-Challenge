@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  padding: 25px;
+
+  mat-table {
+    width: calc(100% - 50px);
+  }
+
+  .mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
+  }
+
+  .mat-header-row {
+    width: 100%;
+  }
+
+  .mat-row {
+    width: 100%;
+  }
+
+  .mat-column-plan {
+    flex: 0 0 33% !important;
+    min-width: 600px !important;
+  }
+
+  .mat-column-nombre {
+    flex: 0 0 33% !important;
+    min-width: 600px !important;
+  }
+
+  .mat-column-periodo {
+    flex: 0 0 33% !important;
+    min-width: 600px !important;
+  }
+}

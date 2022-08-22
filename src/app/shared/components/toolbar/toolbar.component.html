@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+    <form class="form flex justify-content-around" [formGroup]="searchForm">
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Buscar</mat-label>
+            <input matInput type="text" formControlName="search" />
+            <button *ngIf="searchForm?.get('search')?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="resetForm()">
+                <mat-icon>close</mat-icon>
+            </button>
+            <button matSuffix mat-icon-button aria-label="Search" (click)="search()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+    <span class="spacer"></span>
+    <button mat-icon-button class="icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button *ngIf="show_shopping_cart" mat-icon-button class="icon" aria-label="Example icon-button with share icon">
+        <mat-icon [matBadge]="budgeCount" matBadgeColor="warn">add_shopping_cart</mat-icon>
+    </button>
+</mat-toolbar>
