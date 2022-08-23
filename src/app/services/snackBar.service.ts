@@ -6,15 +6,17 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 })
 
 export class SnackBarService {
-    private horizontalPosition: MatSnackBarHorizontalPosition = 'start';
-    private verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+    private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+    private verticalPosition: MatSnackBarVerticalPosition = 'top';
+    private duration: number = 2000;
 
     constructor(private _snackBar: MatSnackBar) { }
 
-    openSnackBar(message: string, buttonLabel?: string, horizontalPosition?: MatSnackBarHorizontalPosition, verticalPosition?: MatSnackBarVerticalPosition) {
+    openSnackBar(message: string, buttonLabel?: string, horizontalPosition?: MatSnackBarHorizontalPosition, verticalPosition?: MatSnackBarVerticalPosition, duration?: number) {
         this._snackBar.open(message, buttonLabel ?? 'Aceptar', {
             horizontalPosition: horizontalPosition ?? this.horizontalPosition,
             verticalPosition: verticalPosition ?? this.verticalPosition,
+            duration: duration ?? this.duration
         });
     }
 }

@@ -1,9 +1,17 @@
 <mat-toolbar color="primary">
-    <form class="form flex justify-content-around" [formGroup]="searchForm">
-        <mat-form-field class="form-field" appearance="fill">
+    <button *ngIf="on_shopping_cart" 
+        matTooltip="Volver a listado de planes" 
+        mat-icon-button class="icon" 
+        aria-label="Example icon-button with share icon"
+        (click)="goToItemsList()"
+    >
+        <mat-icon matBadgeColor="warn">arrow_back_ios</mat-icon>
+    </button>
+    <form [formGroup]="searchForm">
+        <mat-form-field appearance="fill">
             <mat-label>Buscar</mat-label>
             <input matInput type="text" formControlName="search" />
-            <button *ngIf="searchForm?.get('search')?.value" matSuffix mat-icon-button aria-label="Clear"
+            <button matTooltip="Limpiar búsqueda" *ngIf="searchForm?.get('search')?.value" matSuffix mat-icon-button aria-label="Clear"
                 (click)="resetForm()">
                 <mat-icon>close</mat-icon>
             </button>
@@ -12,11 +20,12 @@
             </button>
         </mat-form-field>
     </form>
-    <span class="spacer"></span>
-    <button mat-icon-button class="icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-    </button>
-    <button *ngIf="show_shopping_cart" mat-icon-button class="icon" aria-label="Example icon-button with share icon">
+    <button *ngIf="show_shopping_cart" 
+        matTooltip="Ver carrito" 
+        mat-icon-button class="icon" 
+        aria-label="Example icon-button with share icon"
+        (click)="goToShoppingCart()"
+    >
         <mat-icon [matBadge]="budgeCount" matBadgeColor="warn">add_shopping_cart</mat-icon>
     </button>
 </mat-toolbar>

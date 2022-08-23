@@ -2,35 +2,45 @@
   width: 100%;
   padding: 25px;
 
-  mat-table {
-    width: calc(100% - 50px);
+  table {
+    width: 95%;
+
+    th {
+      &.capitalize {
+        text-transform:capitalize;
+      }
+    }
+
+    tr.detail-row {
+      height: 0;
+    }
+
+    tr.element-row:not(.expanded-row):hover {
+      background: whitesmoke;
+    }
+
+    tr.element-row:not(.expanded-row):active {
+      background: #efefef;
+    }
+
+    .element-row td {
+      border-bottom-width: 0;
+    }
+
+    tr {
+      &:hover {
+        td[mat-cell] {
+          &.expandable {
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 
-  .mat-table__wrapper .mat-table {
-    min-width: auto !important;
-    width: 100% !important;
-  }
-
-  .mat-header-row {
-    width: 100%;
-  }
-
-  .mat-row {
-    width: 100%;
-  }
-
-  .mat-column-plan {
-    flex: 0 0 33% !important;
-    min-width: 600px !important;
-  }
-
-  .mat-column-nombre {
-    flex: 0 0 33% !important;
-    min-width: 600px !important;
-  }
-
-  .mat-column-periodo {
-    flex: 0 0 33% !important;
-    min-width: 600px !important;
+  .expandedDetail {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15%;
   }
 }

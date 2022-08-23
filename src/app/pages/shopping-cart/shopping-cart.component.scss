@@ -1,1 +1,14 @@
-// component css goes here
+.container {
+  width: 100%;
+  padding: 25px;
+
+  table {
+    width: 95%;
+
+    th {
+      &.capitalize {
+        text-transform: capitalize;
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
-.example-spacer {
-  flex: 1 1 auto;
-}
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
 
-.form-field {
-  width: 200px;
+  input.mat-input-element {
+    font-weight: 600 !important;
+  }
 }

@@ -32,7 +32,8 @@ const COMPONENTS = [
         MatIconModule,
         MatBadgeModule,
         MatToolbarModule,
-        MatSelectModule
+        MatSelectModule,
+        MatButtonModule
     ],
     imports: [
         CommonModule,

@@ -1,48 +1,60 @@
-<toolbar [show_shopping_cart]="true"></toolbar>
+<toolbar [show_shopping_cart]="true" (searchString)="filterData($event)"></toolbar>
 <div class="container">
-    <mat-table *ngIf="itemList.length" [dataSource]="itemList" class="mat-elevation-z8">
+    <table mat-table *ngIf="filteredList.length" [dataSource]="filteredList" multiTemplateDataRows>
+        <caption style="display:none">table</caption>
+        <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay; let i = index">
+            <ng-container>
+                <th class="capitalize" mat-header-cell *matHeaderCellDef>{{column}}</th>
+                <td mat-cell *matCellDef="let element; let y = index" class="expandable"
+                    (click)="setExpandedElement(element)">
+                    <span *ngIf="column === ' '" [ngClass]="getExpandableRowClass(element)">
+                        <mat-icon>{{ getExpandableRowClass(element) === 'expanded' ? 'keyboard_arrow_up' :
+                            'keyboard_arrow_down' }}</mat-icon>
+                    </span>
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-    
-        <!-- Position Column -->
-        <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                    <span *ngIf="column !== ' ' && column !== 'periodos'" [ngClass]="getExpandableRowClass(element)">
+                        {{element[column]}}
+                    </span>
+
+                    <span *ngIf="column === 'periodos'" [ngClass]="getExpandableRowClass(element)">
+                        Cantidad: {{element[column].length}} (Ver detalle)
+                    </span>
+                </td>
+            </ng-container>
+
         </ng-container>
-    
-        <!-- Name Column -->
-        <ng-container matColumnDef="plan">
-            <th mat-header-cell *matHeaderCellDef> Plan </th>
-            <td mat-cell *matCellDef="let element"> {{element.plan}} </td>
-        </ng-container>
-    
-        <!-- Weight Column -->
-        <ng-container matColumnDef="periodos">
-            <th mat-header-cell *matHeaderCellDef> Periodos </th>
-            <td mat-cell *matCellDef="let element">
-                <!-- <form> -->
-                    <mat-form-field appearance="outline">
-                      <!-- <mat-label>Favorite food</mat-label> -->
-                      <mat-select (selectionChange)="setAddData(element.plan, $event.value)">
-                        <mat-option *ngFor="let periodo of element.periodos" [value]="periodo.periodo">
-                          {{periodo.periodo}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  <!-- </form> -->
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div *ngIf="expandedElement && expandedElement === element" class="expandedDetail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                    <div></div>
+
+                    <div class="flex flex-column">
+                        <ng-container *ngFor="let detalle of element?.periodos">
+                            <p>
+                                <span style="margin-right: 90px;"> Período: {{detalle.periodo}} </span>
+                                <span style="margin-right: 90px;"> Valor: ${{detalle.valor}}</span>
+                                <!-- <button mat-button mat-stroked-button color="primary"
+                                    (click)="addToShoppingCart(element.plan, detalle.periodo)">Agregar a carrito</button> -->
+                                <button matTooltip="Agregar al carrito" mat-button color="primary"
+                                    (click)="addToShoppingCart(element.plan, detalle.periodo)">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
             </td>
         </ng-container>
 
-        <ng-container matColumnDef=" ">
-            <th mat-header-cell *matHeaderCellDef> Acción </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-stroked-button color="primary" (click)="addToShoppingCart();">Agregar a carrito</button>
-            </td>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+        <ng-container>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+                [class.expanded-row]="expandedElement === element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
         </ng-container>
-    
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </mat-table>
+    </table>
 </div>
